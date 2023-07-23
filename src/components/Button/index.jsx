@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
 import style from "./Button.module.css";
 
 export const Button = (props) => {
@@ -11,16 +10,19 @@ export const Button = (props) => {
     height = "65px",
     link = "/",
     handleClick = () => console.log("click link :", link),
+    customStyle,
   } = props;
-  const navigate = useNavigate();
-
-  //   const handleClick1 = () => {
-  //     navigate(link);
-  //   };
 
   return (
     <input
-      style={{ width: width, backgroundColor: color, height: height }}
+      style={{
+        ...{
+          width: width,
+          backgroundColor: color,
+          height: height,
+        },
+        ...customStyle,
+      }}
       className={style.button}
       type="button"
       value={value}
@@ -38,4 +40,5 @@ Button.propTypes = {
   height: PropTypes.string,
   link: PropTypes.string,
   handleClick: PropTypes.func,
+  customStyle: PropTypes.object,
 };

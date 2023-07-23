@@ -31,6 +31,8 @@ export const Form = () => {
       } else {
         alert("El usuario no existe");
       }
+    } else {
+      alert("Por favor, complete los campos");
     }
   };
 

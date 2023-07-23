@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const Navbar = ({ children }) => {
+export const Navbar = ({ children, customStyle }) => {
   return (
     <>
       <header
@@ -13,9 +13,12 @@ export const Navbar = ({ children }) => {
         <h2 style={{ textAlign: "center", color: "white" }}>Form React</h2>
         <div
           style={{
-            width: "85%",
-            display: "flex",
-            justifyContent: "space-around",
+            ...{
+              width: "85%",
+              display: "flex",
+              justifyContent: "space-around",
+            },
+            ...customStyle,
           }}
         >
           {children}
@@ -28,4 +31,5 @@ export const Navbar = ({ children }) => {
 
 Navbar.propTypes = {
   children: PropTypes.node,
+  customStyle: PropTypes.object,
 };
