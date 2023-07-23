@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { encriptPassword } from "../../utils/encriptPassword";
 
 import { useValidEmail } from "../../hooks/useValidEmail";
 import { useValidPassword } from "../../hooks/useValidPassword";
@@ -14,6 +15,20 @@ export const Form = () => {
 
   console.log("json info :", users);
 
+  //   const encriptPassword = (password) => {
+  //     const salt = bcrypt.genSaltSync(10);
+  //     const hashPassword = bcrypt.hashSync(password, salt);
+  //     return hashPassword;
+  //   };
+
+  //   const isAutorized = (emailUser, passwordHashed) => {
+  //     const exist = users.find((user) => user.email === emailUser);
+  //     if (exist) {
+  //       return bcrypt.compareSync(exist.password, passwordHashed);
+  //     }
+  //     return false;
+  //   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
@@ -26,10 +41,21 @@ export const Form = () => {
         (user) => user.email === email && user.password === password
       );
       if (exist) {
+        const dataLogin = {
+          email: exist.email,
+          password: encriptPassword(exist.password),
+        };
+        console.log("exist :", dataLogin.password);
+        // console.log(
+        //   "bcrypt comparacion autorizado:",
+        //   isAutorized(email, encriptPassword(exist?.password))
+        // );
+        //   bcrypt.compareSync(email, encriptPassword(exist?.password))
         alert("Ha iniciados sesion de forma correcta");
+        localStorage.setItem("tocken", JSON.stringify(dataLogin));
         navigate("/menu");
       } else {
-        alert("El usuario no existe");
+        alert("El usuario o contraseña son incorrectos");
       }
     } else {
       alert("Por favor, complete los campos");
