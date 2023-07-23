@@ -16,7 +16,7 @@ export const Menu = () => {
 
   useEffect(() => {
     fetch(
-      `https://api.thecatapi.com/v1/breeds?limit=10&page=0&api_key=${apiKey}`
+      `https://api.thecatapi.com/v1/breeds?limit=20&page=0&api_key=${apiKey}`
     )
       .then((res) => res.json())
       .then((data) => {
