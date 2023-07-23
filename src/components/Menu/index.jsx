@@ -27,7 +27,9 @@ export const Menu = () => {
 
   const handleCloseSession = (e) => {
     e.preventDefault();
-
+    localStorage.clear();
+    navigate("/");
+    alert("Sesión cerrada");
     console.log("Sesion cerrada");
   };
 
