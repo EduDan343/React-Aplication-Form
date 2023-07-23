@@ -1,12 +1,38 @@
+import { useNavigate } from "react-router-dom";
+
 import { useValidEmail } from "../../hooks/useValidEmail";
 import { useValidPassword } from "../../hooks/useValidPassword";
 import { Button } from "../Button";
-// import users from "../../../data.json";
+import users from "../../../data.json";
 import style from "./form.module.css";
 
 export const Form = () => {
   const [email, errorEmail, handleEmail] = useValidEmail();
   const [password, errorPassword, handlePassword] = useValidPassword();
+
+  const navigate = useNavigate();
+
+  console.log("json info :", users);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (
+      email &&
+      password &&
+      !errorEmail.length &&
+      !errorPassword.message.length
+    ) {
+      const exist = users.find(
+        (user) => user.email === email && user.password === password
+      );
+      if (exist) {
+        alert("Ha iniciados sesion de forma correcta");
+        navigate("/menu");
+      } else {
+        alert("El usuario no existe");
+      }
+    }
+  };
 
   return (
     <main className={style.container}>
@@ -42,6 +68,8 @@ export const Form = () => {
         placeholder={"Insertar correo"}
         width={"30%"}
         color={"#42d08a"}
+        link={"/menu"}
+        handleClick={handleSubmit}
       />
     </main>
   );
